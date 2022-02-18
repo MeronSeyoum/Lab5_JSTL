@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author merya
+ * @author Meron seyoum
  */
 public class ShoppingListServlet extends HttpServlet {
 
@@ -29,6 +29,7 @@ public class ShoppingListServlet extends HttpServlet {
             throws ServletException, IOException {
         //Handles creation/destruction of sessions        
         HttpSession session = request.getSession();
+  
 
         if (session.getAttribute("username") != null) {
             String query = request.getQueryString();
@@ -71,11 +72,19 @@ public class ShoppingListServlet extends HttpServlet {
                 session.setAttribute("username", username);
                 session.setAttribute("items", items);
             }
-        } else if (actions.equals("add") && actions != null) {
+        } else if (actions.equals("add") ) {
+
             String item = request.getParameter("list");
             ArrayList items = (ArrayList<String>) session.getAttribute("items");
 
             items.add(item);
+            session.setAttribute("items", items);
+        } else if (actions.equals("delete") ) {
+
+            String item = request.getParameter("list");
+            ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
+
+            items.remove(item);
             session.setAttribute("items", items);
         }
         getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
