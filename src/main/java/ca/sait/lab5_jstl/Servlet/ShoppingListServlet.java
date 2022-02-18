@@ -1,7 +1,8 @@
-package ca.sait.lab5_jstl.Servlets;
+
+package ca.sait.lab5_jstl.Servlet;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Meron Seyoum
+ * @author merya
  */
 public class ShoppingListServlet extends HttpServlet {
 
@@ -26,21 +27,22 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- HttpSession session = request.getSession();       
- if (session.getAttribute("username") != null) {
+      //Handles creation/destruction of sessions        
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("username") != null) {
             String query = request.getQueryString();
 
             if (query != null && query.contains("logout")) {
                 session.invalidate();
                 request.setAttribute("message", "User has successfully logged out.");
             } else {
-                response.sendRedirect("shoppinglist");
+                response.sendRedirect("ShoppingList");
 
                 return;
             }
         }
-
-        getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+          getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
     /**
@@ -54,19 +56,10 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
 
-        if (username == null || username.isEmpty()) {
-            request.setAttribute("message", "Username is missing.");
-        } else {
-
-            request.getSession().setAttribute("username", username);
-
-            response.sendRedirect("ShopingList");
-            return;
-
-        }
-        getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
+      getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
+
+  
 
 }

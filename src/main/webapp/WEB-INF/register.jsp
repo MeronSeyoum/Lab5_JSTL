@@ -1,8 +1,9 @@
 <%-- 
     Document   : register
     Created on : 17-Feb-2022, 8:56:57 PM
-    Author     : merya
+    Author     : Meron Seyoum
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,10 +14,11 @@
     </head>
     <body>
         <h1>Shopping List</h1>
-        <form action="shoppinglist" method="Post"></form>
-    <lable for="username">Username:</lable>
-    <input type="text" name="username" id="username"/>
-    <button type="submit">Register Name</button>
-</form>
-</body>
+        <form action="ShoppingList" method="post">
+            <lable for="username">Username:</lable>
+            <input type="text" name="username" id="username"/>
+            <button type="submit">Register Name</button>
+        </form>
+         <p>${message}</p> 
+    </body>
 </html>
