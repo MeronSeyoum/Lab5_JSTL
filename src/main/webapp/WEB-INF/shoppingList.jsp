@@ -18,16 +18,25 @@
         <a href="ShoppingList?logout">Log Out</a>
 
         <h2>List</h2>
-        <form action="add" method="Post">
-            <lable for="list">Add List</lable>
-            <input type="text" name="list" id="lsit"/>
+        <form action="ShoppingList" method="Post">
+            <lable for="list">Add Item: </lable>
+            <input type="text" name="list" id="list"/>
+            <input type="hidden" name="action" value="add">
             <button type="submit">Add</button>
-
         </form>
-        <ul>
-            <c:forEach items="${items}" var="item">
-                <li><c:out value="${item}" /></li>
-                </c:forEach>
-        </ul>
+        <br>
+        <form action="ShoppingList" method="Post">
+           
+              <c:forEach items="${items}" var="item">
+                <p>
+                    <input type="radio" name="list" value="${item}">
+                    <c:out value="${item}"></c:out>
+                </p>
+            </c:forEach>
+                    <br><br>
+            <input type="hidden" name="action" value="delete">
+            <button type="submit">Delete</button>
+        </form>
     </body>
 </html>
+ 

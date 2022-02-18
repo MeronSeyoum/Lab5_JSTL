@@ -2,6 +2,7 @@ package ca.sait.lab5_jstl.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,21 +57,27 @@ public class ShoppingListServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        String actionValue = request.getParameter("action");
+        String actions = request.getParameter("action");
 
-        if (actionValue.equals("register")) {
+        if (actions.equals("register")) {
             String username = request.getParameter("username");
 
             if (username == null || username.isEmpty()) {
-                
-          request.setAttribute("message", "Username is missing.");
-                getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);  
-} else {
+
+                request.setAttribute("message", "Username is missing.");
+                getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            } else {
+                ArrayList<String> items = new ArrayList<>();
                 session.setAttribute("username", username);
-                response.sendRedirect("ShoppingList");
-
+                session.setAttribute("items", items);
             }
+        } else if (actions.equals("add") && actions != null) {
+            String item = request.getParameter("list");
+            ArrayList items = (ArrayList<String>) session.getAttribute("items");
 
+            items.add(item);
+            session.setAttribute("items", items);
         }
+        getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
     }
 }
