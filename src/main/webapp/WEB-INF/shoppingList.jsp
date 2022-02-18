@@ -14,16 +14,20 @@
     </head>
     <body>
         <h1>Shopping List</h1>
-         <form action="shoppinglist" method="Post">
-    <lable for="list">Add List</lable>
-    <input type="text" name="list" id="lsit"/>
-    <button type="submit">Add</button>
-    
-</form>
- <ul>
+        Hello, ${username}
+        <a href="ShoppingList?logout">Log Out</a>
+
+        <h2>List</h2>
+        <form action="add" method="Post">
+            <lable for="list">Add List</lable>
+            <input type="text" name="list" id="lsit"/>
+            <button type="submit">Add</button>
+
+        </form>
+        <ul>
             <c:forEach items="${items}" var="item">
-            <li><c:out value="${item}" /></li>
-            </c:forEach>
+                <li><c:out value="${item}" /></li>
+                </c:forEach>
         </ul>
     </body>
 </html>

@@ -1,4 +1,3 @@
-
 package ca.sait.lab5_jstl.Servlet;
 
 import java.io.IOException;
@@ -27,7 +26,7 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      //Handles creation/destruction of sessions        
+        //Handles creation/destruction of sessions        
         HttpSession session = request.getSession();
 
         if (session.getAttribute("username") != null) {
@@ -37,12 +36,11 @@ public class ShoppingListServlet extends HttpServlet {
                 session.invalidate();
                 request.setAttribute("message", "User has successfully logged out.");
             } else {
-                response.sendRedirect("ShoppingList");
-
+                getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
                 return;
             }
         }
-          getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
     /**
@@ -56,10 +54,23 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
 
-      getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+        String actionValue = request.getParameter("action");
+
+        if (actionValue.equals("register")) {
+            String username = request.getParameter("username");
+
+            if (username == null || username.isEmpty()) {
+                
+          request.setAttribute("message", "Username is missing.");
+                getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);  
+} else {
+                session.setAttribute("username", username);
+                response.sendRedirect("ShoppingList");
+
+            }
+
+        }
     }
-
-  
-
 }
