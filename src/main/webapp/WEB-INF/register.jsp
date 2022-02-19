@@ -16,15 +16,15 @@
     <body>
         <div class="main">
             <div class="inner">
-            <h1>Shopping List</h1>
-            <form action="ShoppingList" method="post">
-                <lable for="username">Username:</lable>
-                <input type="text" name="username" id="username"/>
-                <input type="hidden" name="action" value="register">
-                <button type="submit">Register Name</button>
-            </form>
-            <p>${message}</p> 
-        </div>
+                <h1>Shopping List</h1>
+                <form action="ShoppingList" method="post">
+                    <lable for="username">Username:</lable>
+                    <input type="text" name="username" id="username"/>
+                    <input type="hidden" name="action" value="register">
+                    <button type="submit">Register Name</button>
+                </form>
+                <p>${message}</p> 
+            </div>
         </div>
     </body>
 </html>
