@@ -1,7 +1,7 @@
 package ca.sait.lab5_jstl.Servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,9 +27,10 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Handles creation/destruction of sessions        
+
+        //Handles creation/destruction of sessions  
+        // it enable user to register and login to shopping list as well as redirect back to home page after logout      
         HttpSession session = request.getSession();
-  
 
         if (session.getAttribute("username") != null) {
             String query = request.getQueryString();
@@ -56,10 +57,11 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+// request for httpsession       
         HttpSession session = request.getSession();
 
         String actions = request.getParameter("action");
-
+//display user name and avaliable session for list 
         if (actions.equals("register")) {
             String username = request.getParameter("username");
 
@@ -72,14 +74,16 @@ public class ShoppingListServlet extends HttpServlet {
                 session.setAttribute("username", username);
                 session.setAttribute("items", items);
             }
-        } else if (actions.equals("add") ) {
+        } //if request is add, add list to the session and shopping page list
+        else if (actions.equals("add")) {
 
             String item = request.getParameter("list");
             ArrayList items = (ArrayList<String>) session.getAttribute("items");
 
             items.add(item);
             session.setAttribute("items", items);
-        } else if (actions.equals("delete") ) {
+        } // delete selected list item from the page and session
+        else if (actions.equals("delete")) {
 
             String item = request.getParameter("list");
             ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
